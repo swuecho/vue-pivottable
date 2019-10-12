@@ -12249,7 +12249,8 @@ function getRenders(lang) {
   mixins: [defaultProps],
   computed: {
     renderers: function renderers() {
-      return /* Cannot get final name for export "default" in "./src/TableRenderer.js" (known exports: getRenders, known reexports: ) */ undefined[this.rendererName in /* Cannot get final name for export "default" in "./src/TableRenderer.js" (known exports: getRenders, known reexports: ) */ undefined ? this.rendererName : Object.keys(/* Cannot get final name for export "default" in "./src/TableRenderer.js" (known exports: getRenders, known reexports: ) */ undefined)[0]];
+      var table_renderers = getRenders(this.lang);
+      return table_renderers[this.rendererName in table_renderers ? this.rendererName : Object.keys(table_renderers)[0]];
     }
   },
   render: function render(h) {
