@@ -4,6 +4,6 @@ module.exports = {
     [
     "@vue/babel-preset-jsx", {
       injectH: false
-    }]
+    }],
   ]
 }
