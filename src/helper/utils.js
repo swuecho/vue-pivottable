@@ -801,6 +801,7 @@ export {
   derivers,
   locales,
   naturalSort,
+  usFmt,
   numberFormat,
   getSort,
   sortAs,

@@ -1,6 +1,6 @@
 import common from './helper/defaultProps'
 import DraggableAttribute from './DraggableAttribute'
-import Dropdown from './Dropdown'
+import Dropdown from './Dropdown.jsx'
 import Pivottable from './Pivottable'
 import { PivotData, getSort, locales, sortAs } from './helper/utils'
 import draggable from 'vuedraggable'
