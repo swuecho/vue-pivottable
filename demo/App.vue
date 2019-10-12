@@ -109,7 +109,7 @@ export default {
       },
       pivotData: tips,
       aggregatorName: "和",
-      rendererName: "表热力图",
+      rendererName: "热力图",
       rows: ["Payer Gender", "Party Size"],
       cols: ["Meal", "Payer Smoker", "Day of Week"],
       vals: ["Total Bill"],
