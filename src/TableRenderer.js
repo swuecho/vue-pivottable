@@ -70,7 +70,7 @@ function makeRenderer(opts = {}) {
         return len
       }
     },
-    render(h) {
+    render() {
       const pivotData = new PivotData({ aggregators: locales[this.lang]['aggregators'], ...this.$props })
       const colAttrs = pivotData.props.cols
       const rowAttrs = pivotData.props.rows
@@ -151,44 +151,35 @@ function makeRenderer(opts = {}) {
           : null
       let thead = [
         colAttrs.map((c, j) => {
-          return h('tr', {
-            attrs: {
-              key: `colAttrs${j}`
-            }
-          },
-            [
-              j === 0 && rowAttrs.length !== 0 ? h('th', {
-                attrs: {
-                  colSpan: rowAttrs.length,
-                  rowSpan: colAttrs.length
-                }
-              }) : undefined,
+          return <tr
+            key={`colAttrs${j}`}>
+            {
+              [
+                j === 0 && rowAttrs.length !== 0 ? <th
+                  colSpan={rowAttrs.length}
+                  rowSpan={colAttrs.length}></th>
+                  : undefined,
 
-              h('th', {
-                staticClass: ['pvtAxisLabel']
-              }, c),
+                <th class='pvtAxisLabel'> {c}</th>,
 
-              colKeys.map((colKey, i) => {
-                const x = this.spanSize(colKeys, i, j)
-                if (x === -1) {
-                  return null
-                }
-                return h('th', {
-                  staticClass: ['pvtColLabel'],
-                  attrs: {
-                    key: `colKey${i}`,
-                    colSpan: x,
-                    rowSpan: j === colAttrs.length - 1 && rowAttrs.length !== 0 ? 2 : 1
+                colKeys.map((colKey, i) => {
+                  const x = this.spanSize(colKeys, i, j)
+                  if (x === -1) {
+                    return null
                   }
-                }, this.applyLabel(colAttrs[j], colKey[j]))
-              }),
-              j === 0 && this.rowTotal ? h('th', {
-                staticClass: ['pvtTotalLabel'],
-                attrs: {
-                  rowSpan: colAttrs.length + (rowAttrs.length === 0 ? 0 : 1)
-                }
-              }, 'Totals') : undefined
-            ])
+                  return <th class="pvtColLabel"
+                    key={`colKey${i}`}
+                    colSpan={x}
+                    rowSpan={j === colAttrs.length - 1 && rowAttrs.length !== 0 ? 2 : 1}
+                  >{this.applyLabel(colAttrs[j], colKey[j])}</th>
+                }),
+                j === 0 && this.rowTotal ? h('th', {
+                  staticClass: ['pvtTotalLabel'],
+                  attrs: {
+                    rowSpan: colAttrs.length + (rowAttrs.length === 0 ? 0 : 1)
+                  }
+                }, 'Totals') : undefined
+              ]} </tr>
         }),
 
         rowAttrs.length !== 0 ? h('tr',
@@ -301,7 +292,7 @@ function makeRenderer(opts = {}) {
 const TSVExportRenderer = {
   name: 'tsv-export-renderers',
   mixins: [defaultProps],
-  render(h) {
+  render() {
     const pivotData = new PivotData({ aggregators: locales[this.lang]['aggregators'], ...this.$props })
     const rowKeys = pivotData.getRowKeys()
     const colKeys = pivotData.getColKeys()

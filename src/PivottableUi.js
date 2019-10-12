@@ -240,32 +240,23 @@ export default {
           })
         ])
     },
-    rendererCell(rendererName, h) {
-      let dropdown = h(Dropdown, {
-        props: {
-          values: Object.keys(this.renderers)
-        },
-        domProps: {
-          value: rendererName
-        },
-        on: {
-          input: (value) => { this.propUpdater('rendererName')(value) }
-        }
-      })
-      /*
-      let dropdown = <Dropdown values={Object.keys(this.renderers)}></Dropdown>
-      */
-
+    rendererCell(rendererName) {
       return this.$slots.rendererCell
-        ? h('td', {
-          staticClass: ['pvtRenderers pvtVals pvtText']
-        }, this.$slots.rendererCell)
-        : h('td', {
-          staticClass: ['pvtRenderers']
-        },
-          [
-            dropdown
-          ])
+        ? <td
+          class='pvtRenderers pvtVals pvtText'>
+          {this.$slots.rendererCell}
+        </td>
+        : <td
+          class='pvtRenderers'>
+          <Dropdown
+            values={Object.keys(this.renderers)}
+            domProps={{
+              value: rendererName
+            }}
+            on={{
+              input: (value) => { this.propUpdater('rendererName')(value) }
+            }}></Dropdown>
+        </td>
     },
     aggregatorCell(aggregatorName, vals) {
       return this.$slots.aggregatorCell
@@ -316,7 +307,7 @@ export default {
       </td>
     }
   },
-  render(h) {
+  render() {
     if (this.data.length < 1) return
     const rendererName = this.propsData.rendererName || this.rendererName
     const aggregatorName = this.propsData.aggregatorName || this.aggregatorName
@@ -370,10 +361,9 @@ export default {
         }
       },
       'pvtAxisContainer pvtVertList pvtRows',
-      h
     )
 
-    const rendererCell = this.rendererCell(rendererName, h)
+    const rendererCell = this.rendererCell(rendererName)
     const aggregatorCell = this.aggregatorCell(aggregatorName, vals)
 
     const props = {
