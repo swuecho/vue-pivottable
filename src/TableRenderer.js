@@ -329,7 +329,7 @@ const TSVExportRenderer = {
 
     result.unshift(headerRow);
     let rows = result.length;
-
+    /*
     return h('textarea', {
       style: {
         width: window.innerWidth / 2,
@@ -344,6 +344,23 @@ const TSVExportRenderer = {
         value: result.map(r => r.join(',')).join('\n')
       }
     })
+    */
+    let style = {
+      width: window.innerWidth / 2,
+      height: window.innerHeight / 2,
+      'min-width': '600px',
+    }
+    let attrs = {
+      readOnly: true,
+      rows: rows
+    }
+    let domProps = {
+      value: result.map(r => r.join(',')).join('\n')
+    }
+    return <textarea style={style}
+      attrs={attrs}
+      domProps={domProps}>
+    </textarea>
   }
 }
 
