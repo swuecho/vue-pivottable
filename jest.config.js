@@ -8,7 +8,6 @@ module.exports = {
       "outputName": "test-results.xml",
     }]
   ],
-  "testPathIgnorePatterns": ["third_party"],
   "coverageThreshold": {
     "global": {
       "branches": 1,
@@ -36,11 +35,6 @@ module.exports = {
   ],
   testMatch: [
     '**/tests/unit/**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx)'
-  ],
-  collectCoverage: true,
-  collectCoverageFrom: [
-    'src/**/*.{js,vue}',
-    '!src/main.js', // No need to cover bootstrap file
   ],
   testURL: 'http://localhost/'
 }
