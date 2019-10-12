@@ -84,6 +84,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import tips from "./tips";
 import { VuePivottable, VuePivottableUi } from "@/";
 
