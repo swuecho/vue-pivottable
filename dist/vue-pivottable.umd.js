@@ -12252,7 +12252,7 @@ function getRenders(lang) {
   '透视表': makeRenderer({
     name: 'vue-table'
   }),
-  '表热力图': makeRenderer({
+  '热力图': makeRenderer({
     heatmapMode: 'full',
     name: 'vue-table-heatmap'
   }),
