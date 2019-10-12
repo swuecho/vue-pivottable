@@ -267,14 +267,10 @@ export default {
             dropdown
           ])
     },
-    aggregatorCell(aggregatorName, vals, h) {
+    aggregatorCell(aggregatorName, vals) {
       return this.$slots.aggregatorCell
-        ? h('td', {
-          staticClass: ['pvtVals pvtText']
-        }, this.$slots.aggregatorCell)
-        : h('td', {
-          staticClass: ['pvtVals']
-        },
+        ? <td class="pvtVals pvtText"> {this.$slots.aggregatorCell} </td>
+        : <td class="pvtVals"> {
           [
             h('div',
               [
@@ -329,7 +325,7 @@ export default {
                 })
               ])
               : undefined
-          ])
+          ]} </td>
     },
     outputCell(props) {
       return <td class="pvtOutput">
@@ -395,7 +391,7 @@ export default {
     )
 
     const rendererCell = this.rendererCell(rendererName, h)
-    const aggregatorCell = this.aggregatorCell(aggregatorName, vals, h)
+    const aggregatorCell = this.aggregatorCell(aggregatorName, vals)
 
     const props = {
       ...this.$props,
