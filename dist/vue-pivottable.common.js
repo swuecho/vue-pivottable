@@ -12087,7 +12087,7 @@ function makeRenderer() {
               rowSpan: x,
               colSpan: j === rowAttrs.length - 1 && colAttrs.length !== 0 ? 2 : 1
             }
-          }, _this.applyLabel(rowAttrs[i], txt));
+          }, _this.applyLabel(rowAttrs[j], txt));
         }), colKeys.map(function (colKey, j) {
           var aggregator = pivotData.getAggregator(rowKey, colKey);
           return h('td', {
