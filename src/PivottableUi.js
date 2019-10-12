@@ -241,6 +241,21 @@ export default {
         ])
     },
     rendererCell(rendererName, h) {
+      let dropdown = h(Dropdown, {
+        props: {
+          values: Object.keys(this.renderers)
+        },
+        domProps: {
+          value: rendererName
+        },
+        on: {
+          input: (value) => { this.propUpdater('rendererName')(value) }
+        }
+      })
+      /*
+      let dropdown = <Dropdown values={Object.keys(this.renderers)}></Dropdown>
+      */
+
       return this.$slots.rendererCell
         ? h('td', {
           staticClass: ['pvtRenderers pvtVals pvtText']
@@ -249,27 +264,13 @@ export default {
           staticClass: ['pvtRenderers']
         },
           [
-            h(Dropdown, {
-              props: {
-                values: Object.keys(this.renderers)
-              },
-              domProps: {
-                value: rendererName
-              },
-              on: {
-                input: (value) => { this.propUpdater('rendererName')(value) }
-              }
-            })
+            dropdown
           ])
     },
-    aggregatorCell(aggregatorName, vals, h) {
+    aggregatorCell(aggregatorName, vals) {
       return this.$slots.aggregatorCell
-        ? h('td', {
-          staticClass: ['pvtVals pvtText']
-        }, this.$slots.aggregatorCell)
-        : h('td', {
-          staticClass: ['pvtVals']
-        },
+        ? <td class="pvtVals pvtText"> {this.$slots.aggregatorCell} </td>
+        : <td class="pvtVals"> {
           [
             h('div',
               [
@@ -324,17 +325,12 @@ export default {
                 })
               ])
               : undefined
-          ])
+          ]} </td>
     },
-    outputCell(props, h) {
-      return h('td', {
-        staticClass: ['pvtOutput']
-      },
-        [
-          h(Pivottable, {
-            props
-          })
-        ])
+    outputCell(props) {
+      return <td class="pvtOutput">
+        <Pivottable props={props}></Pivottable>
+      </td>
     }
   },
   render(h) {
@@ -393,6 +389,10 @@ export default {
       'pvtAxisContainer pvtVertList pvtRows',
       h
     )
+
+    const rendererCell = this.rendererCell(rendererName, h)
+    const aggregatorCell = this.aggregatorCell(aggregatorName, vals)
+
     const props = {
       ...this.$props,
       data: this.materializedInput,
@@ -406,35 +406,13 @@ export default {
       vals
     }
 
-    const rendererCell = this.rendererCell(rendererName, h)
-    const aggregatorCell = this.aggregatorCell(aggregatorName, vals, h)
-    const outputCell = this.outputCell(props, h)
-
-    return h('table', {
-      staticClass: ['pvtUi']
-    },
-      [
-        h('tbody',
-          [
-            h('tr',
-              [
-                rendererCell,
-                unusedAttrsCell
-              ]
-            ),
-            h('tr',
-              [
-                aggregatorCell,
-                colAttrsCell
-              ]
-            ),
-            h('tr',
-              [
-                rowAttrsCell,
-                outputCell
-              ]
-            )
-          ])
-      ])
+    const outputCell = this.outputCell(props)
+    return <table class="pvtUi">
+      <tbody>
+        <tr>{[rendererCell, unusedAttrsCell]}</tr>
+        <tr>{[aggregatorCell, colAttrsCell]}</tr>
+        <tr>{[rowAttrsCell, outputCell]}</tr>
+      </tbody>
+    </table>
   }
 }
