@@ -20,6 +20,7 @@
   "license": "MIT",
   "scripts": {
     "serve": "vue-cli-service serve",
+    "test:unit": "vue-cli-service test:unit",
     "build": "vue-cli-service build --target lib --name vue-pivottable src/index.js"
   },
   "dependencies": {
