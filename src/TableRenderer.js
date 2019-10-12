@@ -237,7 +237,7 @@ function makeRenderer(opts = {}) {
                         rowSpan: x,
                         colSpan: j === rowAttrs.length - 1 && colAttrs.length !== 0 ? 2 : 1
                       }
-                    }, this.applyLabel(rowAttrs[i], txt))
+                    }, this.applyLabel(rowAttrs[j], txt))
                   }),
 
                   colKeys.map((colKey, j) => {
