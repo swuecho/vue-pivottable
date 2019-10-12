@@ -272,57 +272,40 @@ export default {
         ? <td class="pvtVals pvtText"> {this.$slots.aggregatorCell} </td>
         : <td class="pvtVals"> {
           [
-            h('div',
-              [
-                h(Dropdown, {
-                  style: {
-                    display: 'inline-block'
-                  },
-                  props: {
-                    values: Object.keys(locales[this.lang]['aggregators'])
-                  },
-                  domProps: {
-                    value: aggregatorName
-                  },
-                  on: {
-                    input: (value) => { this.propUpdater('aggregatorName')(value) }
-                  }
-                }),
-                h('a', {
-                  staticClass: ['pvtRowOrder'],
-                  attrs: {
-                    role: 'button'
-                  },
-                  on: {
-                    click: () => { this.propUpdater('rowOrder')(this.sortIcons[this.propsData.rowOrder].next) }
-                  }
-                }, this.sortIcons[this.propsData.rowOrder].rowSymbol),
-                h('a', {
-                  staticClass: ['pvtColOrder'],
-                  attrs: {
-                    role: 'button'
-                  },
-                  on: {
-                    click: () => { this.propUpdater('colOrder')(this.sortIcons[this.propsData.colOrder].next) }
-                  }
-                }, this.sortIcons[this.propsData.colOrder].colSymbol)
-              ]
-            ),
+            <div>
+              <Dropdown
+                style={{
+                  display: 'inline-block'
+                }}
+                values={Object.keys(locales[this.lang]['aggregators'])}
+                domProps={{
+                  value: aggregatorName
+                }}
+                on={{
+                  input: (value) => { this.propUpdater('aggregatorName')(value) }
+                }}></Dropdown>
+              <a class='pvtRowOrder'
+                role='button'
+                onClick={() => { this.propUpdater('rowOrder')(this.sortIcons[this.propsData.rowOrder].next) }}>
+                {this.sortIcons[this.propsData.rowOrder].rowSymbol} </a>
+              <a
+                class='pvtColOrder'
+                role='button'
+                onClick={() => { this.propUpdater('colOrder')(this.sortIcons[this.propsData.colOrder].next) }}>
+                {this.sortIcons[this.propsData.colOrder].colSymbol}</a>
+            </div>,
             this.numValsAllowed > 0
               ? new Array(this.numValsAllowed).fill().map((n, i) => [
-                h(Dropdown, {
-                  props: {
-                    values: Object.keys(this.attrValues).filter(e =>
-                      !this.hiddenAttributes.includes(e) &&
-                      !this.hiddenFromAggregators.includes(e))
-                  },
-                  domProps: {
+                <Dropdown
+                  values={Object.keys(this.attrValues).filter(e =>
+                    !this.hiddenAttributes.includes(e) &&
+                    !this.hiddenFromAggregators.includes(e))}
+                  domProps={{
                     value: vals[i]
-                  },
-                  on: {
+                  }}
+                  on={{
                     input: (value) => { this.propsData.vals.splice(i, 1, value) }
-                  }
-                })
+                  }}></Dropdown>
               ])
               : undefined
           ]} </td>
