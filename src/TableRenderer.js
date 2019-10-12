@@ -173,12 +173,10 @@ function makeRenderer(opts = {}) {
                     rowSpan={j === colAttrs.length - 1 && rowAttrs.length !== 0 ? 2 : 1}
                   >{this.applyLabel(colAttrs[j], colKey[j])}</th>
                 }),
-                j === 0 && this.rowTotal ? h('th', {
-                  staticClass: ['pvtTotalLabel'],
-                  attrs: {
-                    rowSpan: colAttrs.length + (rowAttrs.length === 0 ? 0 : 1)
-                  }
-                }, 'Totals') : undefined
+                j === 0 && this.rowTotal ? <th class="pvtTotalLabel"
+                    rowSpan={colAttrs.length + (rowAttrs.length === 0 ? 0 : 1)}>
+                      Totals
+                  </th>: undefined
               ]} </tr>
         }),
 
