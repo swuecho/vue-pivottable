@@ -196,9 +196,7 @@ export default {
                   click: e => this.selectOnly(e, x)
                 }
               }, 'only'),
-              h('a', {
-                staticClass: ['pvtOnlySpacer']
-              })
+              <a class="pvtOnlySpacer"></a>
             ])
           })
         ])

@@ -350,15 +350,12 @@ const TSVExportRenderer = {
       height: window.innerHeight / 2,
       'min-width': '600px',
     }
-    let attrs = {
-      readOnly: true,
-      rows: rows
-    }
     let domProps = {
       value: result.map(r => r.join(',')).join('\n')
     }
     return <textarea style={style}
-      attrs={attrs}
+      readOnly={true}
+      rows={rows}
       domProps={domProps}>
     </textarea>
   }
