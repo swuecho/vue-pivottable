@@ -45,6 +45,7 @@
       <div class="table-responsive">
         <vue-pivottable-ui
           :data="pivotData"
+          :attr_tooltip_map="attr_tooltip_map"
           :labels="labels"
           :lang="lang"
           :aggregatorName="aggregatorName"
@@ -97,6 +98,10 @@ export default {
   data() {
     return {
       lang: "cn",
+      attr_tooltip_map: {
+        Meal: "哪里顿饭",
+        "Payer Gender": "你的性别",
+      },
       labels: {
         "Payer Gender": function(value) {
           let mapper = { Female: "Woman", Male: "Man" };
@@ -150,5 +155,39 @@ footer {
   text-align: center;
   margin-top: 40px;
   line-height: 2;
+}
+
+.tooltip {
+  display: block !important;
+  z-index: 10000;
+}
+
+.tooltip .tooltip-inner {
+  background: black;
+  color: white;
+  border-radius: 16px;
+  padding: 5px 10px 4px;
+}
+
+.tooltip .tooltip-arrow {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  position: absolute;
+  margin: 5px;
+  border-color: black;
+  z-index: 1;
+}
+
+.tooltip[aria-hidden="true"] {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.15s, visibility 0.15s;
+}
+
+.tooltip[aria-hidden="false"] {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.15s;
 }
 </style>

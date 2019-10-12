@@ -10,6 +10,10 @@ export default {
   name: 'vue-pivottable-ui',
   mixins: [common],
   props: {
+    attr_tooltip_map: {
+      type: Object,
+      default: {}
+    },
     hiddenAttributes: {
       type: Array,
       default: function () {
@@ -143,6 +147,9 @@ export default {
     }
   },
   methods: {
+    get_desc(q_name) {
+      return this.attr_tooltip_map[q_name] ? this.attr_tooltip_map[q_name] : ""
+    },
     assignValue(field) {
       this.propsData.valueFilter = {
         ...this.propsData.valueFilter,
@@ -222,6 +229,7 @@ export default {
                 draggable: !this.sortonlyFromDragDrop.includes(x) && !this.disabledFromDragDrop.includes(x),
                 name: x,
                 key: x,
+                desc: this.get_desc(x) ,
                 attrValues: this.attrValues[x],
                 sorter: getSort(this.sorters, x),
                 menuLimit: this.menuLimit,
