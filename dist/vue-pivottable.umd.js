@@ -12226,7 +12226,7 @@ var cn_table = {
   '透视表': makeRenderer({
     name: 'vue-table'
   }),
-  '表热力图': makeRenderer({
+  '热力图': makeRenderer({
     heatmapMode: 'full',
     name: 'vue-table-heatmap'
   }),
@@ -12246,26 +12246,7 @@ var rendersOfLang = {
 };
 function getRenders(lang) {
   return rendersOfLang[lang];
-} // export default cn_table;
-
-/* harmony default export */ var src_TableRenderer = ({
-  '透视表': makeRenderer({
-    name: 'vue-table'
-  }),
-  '表热力图': makeRenderer({
-    heatmapMode: 'full',
-    name: 'vue-table-heatmap'
-  }),
-  '列热力图': makeRenderer({
-    heatmapMode: 'col',
-    name: 'vue-table-col-heatmap'
-  }),
-  '行热力图': makeRenderer({
-    heatmapMode: 'row',
-    name: 'vue-table-col-heatmap'
-  }),
-  '数值表': TSVExportRenderer
-});
+}
 // CONCATENATED MODULE: ./src/Pivottable.js
 
 
@@ -12277,7 +12258,8 @@ function getRenders(lang) {
   mixins: [defaultProps],
   computed: {
     renderers: function renderers() {
-      return src_TableRenderer[this.rendererName in src_TableRenderer ? this.rendererName : Object.keys(src_TableRenderer)[0]];
+      var table_renderers = getRenders(this.lang);
+      return table_renderers[this.rendererName in table_renderers ? this.rendererName : Object.keys(table_renderers)[0]];
     }
   },
   render: function render(h) {

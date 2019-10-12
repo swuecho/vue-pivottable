@@ -374,7 +374,7 @@ let en_table = {
 
 let cn_table = {
   '透视表': makeRenderer({ name: 'vue-table' }),
-  '表热力图': makeRenderer({ heatmapMode: 'full', name: 'vue-table-heatmap' }),
+  '热力图': makeRenderer({ heatmapMode: 'full', name: 'vue-table-heatmap' }),
   '列热力图': makeRenderer({ heatmapMode: 'col', name: 'vue-table-col-heatmap' }),
   '行热力图': makeRenderer({ heatmapMode: 'row', name: 'vue-table-col-heatmap' }),
   '数值表': TSVExportRenderer
@@ -385,13 +385,4 @@ let rendersOfLang = {
 }
 export function getRenders(lang) {
   return rendersOfLang[lang]
-}
-
-// export default cn_table;
-export default {
-  '透视表': makeRenderer({ name: 'vue-table' }),
-  '表热力图': makeRenderer({ heatmapMode: 'full', name: 'vue-table-heatmap' }),
-  '列热力图': makeRenderer({ heatmapMode: 'col', name: 'vue-table-col-heatmap' }),
-  '行热力图': makeRenderer({ heatmapMode: 'row', name: 'vue-table-col-heatmap' }),
-  '数值表': TSVExportRenderer
 }
