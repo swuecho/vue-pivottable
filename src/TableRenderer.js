@@ -27,6 +27,9 @@ function makeRenderer(opts = {}) {
       }
     },
     methods: {
+      applyLabel(attr, cell_value) {
+        return this.labels[attr] ? this.labels[attr](cell_value) : cell_value
+      },
       spanSize(arr, i, j) {
         // helper function for setting row/col-span in pivotTableRenderer
         let x
@@ -181,7 +184,7 @@ function makeRenderer(opts = {}) {
                         colSpan: x,
                         rowSpan: j === colAttrs.length - 1 && rowAttrs.length !== 0 ? 2 : 1
                       }
-                    }, colKey[j])
+                    }, this.applyLabel(colAttrs[j], colKey[j]))
                   }),
                   j === 0 && this.rowTotal ? h('th', {
                     staticClass: ['pvtTotalLabel'],
@@ -234,7 +237,7 @@ function makeRenderer(opts = {}) {
                         rowSpan: x,
                         colSpan: j === rowAttrs.length - 1 && colAttrs.length !== 0 ? 2 : 1
                       }
-                    }, txt)
+                    }, this.applyLabel(rowAttrs[i], txt))
                   }),
 
                   colKeys.map((colKey, j) => {

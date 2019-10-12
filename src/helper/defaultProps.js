@@ -4,6 +4,9 @@ export default {
       type: String,
       default: 'en'
     },
+    labels: {
+      type: Object,
+    },
     data: {
       type: [Array, Object, Function],
       required: true

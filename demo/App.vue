@@ -19,6 +19,7 @@
         <vue-pivottable
           :lang="lang"
           :data="pivotData"
+          :labels="labels"
           :aggregatorName="aggregatorName"
           :rendererName="rendererName"
           :rows="rows"
@@ -31,6 +32,7 @@
           &lt;vue-pivottable
               :lang="lang"
               :data="pivotData"
+              :labels="labels"
               :aggregatorName="aggregatorName"
               :rendererName="rendererName"
               :rows="rows"
@@ -43,6 +45,7 @@
       <div class="table-responsive">
         <vue-pivottable-ui
           :data="pivotData"
+          :labels="labels"
           :lang="lang"
           :aggregatorName="aggregatorName"
           :rendererName="rendererName"
@@ -58,6 +61,7 @@
         <code>
           &lt;vue-pivottable-ui
               :data="pivotData"
+              :labels="labels"
               :lang="lang"
               :aggregatorName="aggregatorName"
               :rendererName="rendererName"
@@ -92,6 +96,16 @@ export default {
   data() {
     return {
       lang: "cn",
+      labels: {
+        "Payer Gender": function(value) {
+          let mapper = { Female: "Woman", Male: "Man" };
+          return mapper[value];
+        },
+        Meal: function(value) {
+          let mapper = { Dinner: "Third Meal", Lunch: "Second Meal" };
+          return mapper[value];
+        }
+      },
       pivotData: tips,
       aggregatorName: "和",
       rendererName: "表热力图",

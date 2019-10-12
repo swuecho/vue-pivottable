@@ -20,8 +20,7 @@
   "license": "MIT",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --target lib --name vue-pivottable src/index.js",
-    "lint": "vue-cli-service lint"
+    "build": "vue-cli-service build --target lib --name vue-pivottable src/index.js"
   },
   "dependencies": {
     "core-js": "^2.6.5",
