@@ -6,6 +6,11 @@ import '@/pivottable.css'
 Vue.config.productionTip = false
 // Vue.use(VuePivottable)
 
+import { VTooltip } from 'v-tooltip'
+
+Vue.directive('tooltip', VTooltip)
+
+
 new Vue({
   render: h => h(App)
 }).$mount('#app')
