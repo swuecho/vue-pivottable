@@ -11,12 +11,18 @@ export default {
       this.values.map(r => {
         return <option value={r}> {r} </option>
       })
+    return <select class="pvtDropdown"
+      onChange={e => this.handleChange(e)}
+    > {options}</select>
 
-    /*return <select className="pvtDropdown" value={this.value}
-       onChange={this.handleChange}
+    /*
+    return <select class="pvtDropdown" 
+       value={this.value}
+       onChange= {e => this.handleChange(e)}
     > {options}</select>
     */
 
+    /*
     return h('select', {
       staticClass: ['pvtDropdown'],
       attrs: {
@@ -26,5 +32,6 @@ export default {
         change: this.handleChange
       }
     }, [options]);
+    */
   }
 }

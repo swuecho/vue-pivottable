@@ -241,6 +241,21 @@ export default {
         ])
     },
     rendererCell(rendererName, h) {
+      let dropdown = h(Dropdown, {
+        props: {
+          values: Object.keys(this.renderers)
+        },
+        domProps: {
+          value: rendererName
+        },
+        on: {
+          input: (value) => { this.propUpdater('rendererName')(value) }
+        }
+      })
+      /*
+      let dropdown = <Dropdown values={Object.keys(this.renderers)}></Dropdown>
+      */
+
       return this.$slots.rendererCell
         ? h('td', {
           staticClass: ['pvtRenderers pvtVals pvtText']
@@ -249,17 +264,7 @@ export default {
           staticClass: ['pvtRenderers']
         },
           [
-            h(Dropdown, {
-              props: {
-                values: Object.keys(this.renderers)
-              },
-              domProps: {
-                value: rendererName
-              },
-              on: {
-                input: (value) => { this.propUpdater('rendererName')(value) }
-              }
-            })
+            dropdown
           ])
     },
     aggregatorCell(aggregatorName, vals, h) {
@@ -409,32 +414,12 @@ export default {
     const rendererCell = this.rendererCell(rendererName, h)
     const aggregatorCell = this.aggregatorCell(aggregatorName, vals, h)
     const outputCell = this.outputCell(props, h)
-
-    return h('table', {
-      staticClass: ['pvtUi']
-    },
-      [
-        h('tbody',
-          [
-            h('tr',
-              [
-                rendererCell,
-                unusedAttrsCell
-              ]
-            ),
-            h('tr',
-              [
-                aggregatorCell,
-                colAttrsCell
-              ]
-            ),
-            h('tr',
-              [
-                rowAttrsCell,
-                outputCell
-              ]
-            )
-          ])
-      ])
+    return <table class="pvUi">
+      <tbody>
+        <tr>{[rendererCell, unusedAttrsCell]}</tr>
+        <tr>{[aggregatorCell, colAttrsCell]}</tr>
+        <tr>{[rowAttrsCell, outputCell]}</tr>
+      </tbody>
+    </table>
   }
 }
