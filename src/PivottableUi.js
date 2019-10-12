@@ -196,28 +196,25 @@ export default {
       this.materializedInput = materializedInput
       this.attrValues = attrValues
     },
-    makeDnDCell(items, onChange, classes, h) {
-      return h(draggable, {
-        attrs: {
+    makeDnDCell(items, onChange, classes) {
+      return <draggable
+        attrs={{
           draggable: 'li[data-id]',
           group: 'sharted',
           ghostClass: '.pvtPlaceholder',
           filter: '.pvtFilterBox',
           preventOnFilter: false,
           tag: 'td'
-        },
-        props: {
-          value: items
-        },
-        staticClass: classes,
-        on: {
+        }}
+        value={items}
+        class={classes}
+        on={{
           sort: onChange.bind(this)
-        }
-      },
-        [
+        }}>
+        {[
           items.map(x => {
-            return h(DraggableAttribute, {
-              props: {
+            return <DraggableAttribute
+              props={{
                 sortable: this.sortonlyFromDragDrop.includes(x) || !this.disabledFromDragDrop.includes(x),
                 draggable: !this.sortonlyFromDragDrop.includes(x) && !this.disabledFromDragDrop.includes(x),
                 name: x,
@@ -228,17 +225,14 @@ export default {
                 zIndex: this.zIndices[x] || this.maxZIndex,
                 valueFilter: this.propsData.valueFilter[x],
                 open: this.openStatus[x]
-              },
-              domProps: {
-              },
-              on: {
+              }}
+              on={{
                 'update:filter': this.updateValueFilter,
                 'moveToTop:filterbox': this.moveFilterBoxToTop,
                 'open:filterbox': this.openFilterBox
-              }
-            })
+              }}> </DraggableAttribute>
           })
-        ])
+        ]} </draggable>
     },
     rendererCell(rendererName) {
       return this.$slots.rendererCell

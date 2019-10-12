@@ -174,28 +174,25 @@ function makeRenderer(opts = {}) {
                   >{this.applyLabel(colAttrs[j], colKey[j])}</th>
                 }),
                 j === 0 && this.rowTotal ? <th class="pvtTotalLabel"
-                    rowSpan={colAttrs.length + (rowAttrs.length === 0 ? 0 : 1)}>
-                      Totals
-                  </th>: undefined
+                  rowSpan={colAttrs.length + (rowAttrs.length === 0 ? 0 : 1)}>
+                  Totals
+                  </th> : undefined
               ]} </tr>
         }),
 
-        rowAttrs.length !== 0 ? h('tr',
-          [
+        rowAttrs.length !== 0 ? <tr>
+          {[
             rowAttrs.map((r, i) => {
-              return h('th', {
-                staticClass: ['pvtAxisLabel'],
-                attrs: {
-                  key: `rowAttr${i}`
-                }
-              }, r)
+              return <th
+                class='pvtAxisLabel'
+                key={`rowAttr${i}`}>{r}</th>
             }),
 
             this.rowTotal
-              ? h('th', { staticClass: ['pvtTotalLabel'] }, colAttrs.length === 0 ? 'Totals' : null)
-              : (colAttrs.length === 0 ? undefined : h('th', { staticClass: ['pvtTotalLabel'] }, null))
-          ]
-        ) : undefined
+              ? <th class='pvtTotalLabel'> {colAttrs.length === 0 ? 'Totals' : null} </th>
+              : (colAttrs.length === 0 ? undefined : <th class='pvtTotalLabel'> {null}</th>)
+          ]}
+        </tr> : undefined
 
       ]
       let tbody = [
