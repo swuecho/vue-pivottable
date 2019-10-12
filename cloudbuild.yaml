@@ -10,3 +10,6 @@ steps:
 - name: node:10.15.1
   entrypoint: yarn
   args: ['build']
+
+tags: ['$REPO_NAME', '$SHORT_SHA']
+logsBucket: 'gs://bestqa_cloudbuild/build_log'
