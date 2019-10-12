@@ -1,12 +1,28 @@
 export default {
   props: ['values', 'changeValue'],
   methods: {
-    handleChange (e) {
+    handleChange(e) {
       const changeValue = e.target.value
       this.$emit('input', changeValue)
     }
   },
-  render (h) {
+  render(h) {
+    let options =
+      this.values.map(r => {
+        return <option value={r}> {r} </option>
+      })
+    return <select class="pvtDropdown"
+      onChange={e => this.handleChange(e)}
+    > {options}</select>
+
+    /*
+    return <select class="pvtDropdown" 
+       value={this.value}
+       onChange= {e => this.handleChange(e)}
+    > {options}</select>
+    */
+
+    /*
     return h('select', {
       staticClass: ['pvtDropdown'],
       attrs: {
@@ -15,15 +31,7 @@ export default {
       on: {
         change: this.handleChange
       }
-    },
-    [
-      this.values.map(r => {
-        return h('option', {
-          attrs: {
-            value: r
-          }
-        }, r)
-      })
-    ])
+    }, [options]);
+    */
   }
 }
