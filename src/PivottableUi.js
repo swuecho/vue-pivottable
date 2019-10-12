@@ -331,15 +331,10 @@ export default {
               : undefined
           ])
     },
-    outputCell(props, h) {
-      return h('td', {
-        staticClass: ['pvtOutput']
-      },
-        [
-          h(Pivottable, {
-            props
-          })
-        ])
+    outputCell(props) {
+      return <td class="pvtOutput">
+        <Pivottable props={props}></Pivottable>
+      </td>
     }
   },
   render(h) {
@@ -398,6 +393,10 @@ export default {
       'pvtAxisContainer pvtVertList pvtRows',
       h
     )
+
+    const rendererCell = this.rendererCell(rendererName, h)
+    const aggregatorCell = this.aggregatorCell(aggregatorName, vals, h)
+
     const props = {
       ...this.$props,
       data: this.materializedInput,
@@ -411,9 +410,7 @@ export default {
       vals
     }
 
-    const rendererCell = this.rendererCell(rendererName, h)
-    const aggregatorCell = this.aggregatorCell(aggregatorName, vals, h)
-    const outputCell = this.outputCell(props, h)
+    const outputCell = this.outputCell(props)
     return <table class="pvtUi">
       <tbody>
         <tr>{[rendererCell, unusedAttrsCell]}</tr>
