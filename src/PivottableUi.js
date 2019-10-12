@@ -414,7 +414,7 @@ export default {
     const rendererCell = this.rendererCell(rendererName, h)
     const aggregatorCell = this.aggregatorCell(aggregatorName, vals, h)
     const outputCell = this.outputCell(props, h)
-    return <table class="pvUi">
+    return <table class="pvtUi">
       <tbody>
         <tr>{[rendererCell, unusedAttrsCell]}</tr>
         <tr>{[aggregatorCell, colAttrsCell]}</tr>

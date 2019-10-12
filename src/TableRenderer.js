@@ -256,7 +256,7 @@ function makeRenderer(opts = {}) {
               }, totalAggregator.format(totalAggregator.value())) : undefined
             ])
         }),
-
+        // TOTAL
         h('tr',
           [
             this.colTotal ? h('th', {
