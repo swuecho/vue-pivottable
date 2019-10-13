@@ -7,12 +7,14 @@ import draggable from 'vuedraggable'
 import { getRenders } from './TableRenderer'
 
 export default {
-  name: 'vue-pivottable-ui',
+  name: 'VuePivottableUi',
   mixins: [common],
   props: {
-    attr_tooltip_map: {
+    attrTooltipMap: {
       type: Object,
-      default: {}
+      default: function () {
+        return {}
+      }
     },
     hiddenAttributes: {
       type: Array,
@@ -47,41 +49,6 @@ export default {
     menuLimit: {
       type: Number,
       default: 500
-    }
-  },
-  computed: {
-    renderers() {
-      let renders = getRenders(this.lang)
-      return renders
-    },
-    numValsAllowed() {
-      let aggregators = locales[this.lang]['aggregators']
-      return aggregators[this.propsData.aggregatorName || this.aggregatorName]([])().numInputs || 0
-    },
-    rowAttrs() {
-      return this.propsData.rows.filter(
-        e =>
-          !this.hiddenAttributes.includes(e) &&
-          !this.hiddenFromDragDrop.includes(e)
-      )
-    },
-    colAttrs() {
-      return this.propsData.cols.filter(
-        e =>
-          !this.hiddenAttributes.includes(e) &&
-          !this.hiddenFromDragDrop.includes(e)
-      )
-    },
-    unusedAttrs() {
-      return Object.keys(this.attrValues)
-        .filter(
-          e =>
-            !this.propsData.rows.includes(e) &&
-            !this.propsData.cols.includes(e) &&
-            !this.hiddenAttributes.includes(e) &&
-            !this.hiddenFromDragDrop.includes(e)
-        )
-        .sort(sortAs(this.unusedOrder))
     }
   },
   data() {
@@ -123,18 +90,46 @@ export default {
       }
     }
   },
+  computed: {
+    renderers() {
+      let renders = getRenders(this.lang)
+      return renders
+    },
+    numValsAllowed() {
+      let aggregators = locales[this.lang]['aggregators']
+      return aggregators[this.propsData.aggregatorName || this.aggregatorName]([])().numInputs || 0
+    },
+    rowAttrs() {
+      return this.propsData.rows.filter(
+        e =>
+          !this.hiddenAttributes.includes(e) &&
+          !this.hiddenFromDragDrop.includes(e)
+      )
+    },
+    colAttrs() {
+      return this.propsData.cols.filter(
+        e =>
+          !this.hiddenAttributes.includes(e) &&
+          !this.hiddenFromDragDrop.includes(e)
+      )
+    },
+    unusedAttrs() {
+      return Object.keys(this.attrValues)
+        .filter(
+          e =>
+            !this.propsData.rows.includes(e) &&
+            !this.propsData.cols.includes(e) &&
+            !this.hiddenAttributes.includes(e) &&
+            !this.hiddenFromDragDrop.includes(e)
+        )
+        .sort(sortAs(this.unusedOrder))
+    }
+  },
+
   beforeUpdated(nextProps) {
     this.materializeInput(nextProps.data)
   },
-  created() {
-    this.materializeInput(this.data)
-    this.propsData.vals = this.vals.slice()
-    this.propsData.rows = this.rows
-    this.propsData.cols = this.cols
-    this.unusedOrder = this.unusedAttrs
-    Object.keys(this.attrValues).map(this.assignValue)
-    Object.keys(this.openStatus).map(this.assignValue)
-  },
+  
   watch: {
     data() {
       this.materializeInput(this.data)
@@ -145,6 +140,15 @@ export default {
       Object.keys(this.attrValues).map(this.assignValue)
       Object.keys(this.openStatus).map(this.assignValue)
     }
+  },
+  created() {
+    this.materializeInput(this.data)
+    this.propsData.vals = this.vals.slice()
+    this.propsData.rows = this.rows
+    this.propsData.cols = this.cols
+    this.unusedOrder = this.unusedAttrs
+    Object.keys(this.attrValues).map(this.assignValue)
+    Object.keys(this.openStatus).map(this.assignValue)
   },
   methods: {
     get_desc(q_name) {

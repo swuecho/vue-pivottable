@@ -1,6 +1,6 @@
 
 export default {
-  name: 'draggable-attribute',
+  name: 'DraggableAttribute',
   props: {
     open: {
       type: Boolean,
