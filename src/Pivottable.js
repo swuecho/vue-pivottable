@@ -1,4 +1,4 @@
-import { getRenders } from './TableRenderer'
+import { getRenders } from './TableRenderer.jsx'
 
 import defaultProps from './helper/defaultProps'
 export default {
