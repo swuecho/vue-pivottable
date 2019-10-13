@@ -36,8 +36,8 @@ export default {
       type: Function,
       required: true
     },
-    menuLimit: Number,
-    zIndex: Number
+    menuLimit: { type: Number, default: 0 },
+    zIndex: { type: Number, default: 0 }
   },
   data() {
     return {
@@ -45,7 +45,7 @@ export default {
       filterText: '',
       attribute: '',
       values: [],
-      filter: {}
+      filter: {},
     }
   },
   computed: {
