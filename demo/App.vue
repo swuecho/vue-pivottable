@@ -45,7 +45,7 @@
       <div class="table-responsive">
         <vue-pivottable-ui
           :data="pivotData"
-          :attr_tooltip_map="attr_tooltip_map"
+          :attrTooltipMap="attrTooltipMap"
           :labels="labels"
           :lang="lang"
           :aggregatorName="aggregatorName"
@@ -98,7 +98,7 @@ export default {
   data() {
     return {
       lang: "cn",
-      attr_tooltip_map: {
+      attrTooltipMap: {
         Meal: "哪里顿饭",
         "Payer Gender": "你的性别",
       },

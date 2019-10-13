@@ -12654,7 +12654,7 @@ function PivottableUi_objectSpread(target) { for (var i = 1; i < arguments.lengt
   name: 'vue-pivottable-ui',
   mixins: [defaultProps],
   props: {
-    attr_tooltip_map: {
+    attrTooltipMap: {
       type: Object,
       default: {}
     },
@@ -12788,7 +12788,7 @@ function PivottableUi_objectSpread(target) { for (var i = 1; i < arguments.lengt
   },
   methods: {
     get_desc: function get_desc(q_name) {
-      return this.attr_tooltip_map[q_name] ? this.attr_tooltip_map[q_name] : "";
+      return this.attrTooltipMap[q_name] ? this.attrTooltipMap[q_name] : "";
     },
     assignValue: function assignValue(field) {
       this.propsData.valueFilter = PivottableUi_objectSpread({}, this.propsData.valueFilter, _defineProperty({}, field, {}));

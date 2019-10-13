@@ -1,10 +1,10 @@
 import common from './helper/defaultProps'
-import DraggableAttribute from './DraggableAttribute'
+import DraggableAttribute from './DraggableAttribute.jsx'
 import Dropdown from './Dropdown.jsx'
 import Pivottable from './Pivottable'
 import { PivotData, getSort, locales, sortAs } from './helper/utils'
 import draggable from 'vuedraggable'
-import { getRenders } from './TableRenderer'
+import { getRenders } from './TableRenderer.jsx'
 
 export default {
   name: 'VuePivottableUi',
@@ -152,7 +152,7 @@ export default {
   },
   methods: {
     get_desc(q_name) {
-      return this.attr_tooltip_map[q_name] ? this.attr_tooltip_map[q_name] : ""
+      return this.attrTooltipMap[q_name] ? this.attrTooltipMap[q_name] : ""
     },
     assignValue(field) {
       this.propsData.valueFilter = {

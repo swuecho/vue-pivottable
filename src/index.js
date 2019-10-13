@@ -1,5 +1,5 @@
 import VuePivottable from './Pivottable'
-import VuePivottableUi from './PivottableUi'
+import VuePivottableUi from './PivottableUi.jsx'
 import './pivottable.css'
 const components = {
   VuePivottable,
