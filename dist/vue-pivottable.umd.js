@@ -663,6 +663,15 @@ exports.f = Object.getOwnPropertySymbols;
 
 /***/ }),
 
+/***/ "2638":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+function _extends(){return _extends=Object.assign||function(a){for(var b,c=1;c<arguments.length;c++)for(var d in b=arguments[c],b)Object.prototype.hasOwnProperty.call(b,d)&&(a[d]=b[d]);return a},_extends.apply(this,arguments)}var normalMerge=["attrs","props","domProps"],toArrayMerge=["class","style","directives"],functionalMerge=["on","nativeOn"],mergeJsxProps=function(a){return a.reduce(function(c,a){for(var b in a)if(!c[b])c[b]=a[b];else if(-1!==normalMerge.indexOf(b))c[b]=_extends({},c[b],a[b]);else if(-1!==toArrayMerge.indexOf(b)){var d=c[b]instanceof Array?c[b]:[c[b]],e=a[b]instanceof Array?a[b]:[a[b]];c[b]=d.concat(e)}else if(-1!==functionalMerge.indexOf(b)){for(var f in a[b])if(c[b][f]){var g=c[b][f]instanceof Array?c[b][f]:[c[b][f]],h=a[b][f]instanceof Array?a[b][f]:[a[b][f]];c[b][f]=g.concat(h)}else c[b][f]=a[b][f];}else if("hook"==b)for(var i in a[b])c[b][i]=c[b][i]?mergeFn(c[b][i],a[b][i]):a[b][i];else c[b]=a[b];return c},{})},mergeFn=function(a,b){return function(){a&&a.apply(this,arguments),b&&b.apply(this,arguments)}};module.exports=mergeJsxProps;
+
+
+/***/ }),
+
 /***/ "27ee":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10626,6 +10635,10 @@ var es6_object_keys = __webpack_require__("456d");
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es7.object.get-own-property-descriptors.js
 var es7_object_get_own_property_descriptors = __webpack_require__("8e6e");
 
+// EXTERNAL MODULE: ./node_modules/@vue/babel-helper-vue-jsx-merge-props/dist/helper.js
+var helper = __webpack_require__("2638");
+var helper_default = /*#__PURE__*/__webpack_require__.n(helper);
+
 // EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs2/core-js/object/define-property.js
 var define_property = __webpack_require__("85f2");
 var define_property_default = /*#__PURE__*/__webpack_require__.n(define_property);
@@ -11852,6 +11865,7 @@ utils_PivotData.defaultProps = {
 
 
 
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -12030,9 +12044,7 @@ function makeRenderer() {
           return _this.tableOptions.clickCallback(e, value, filters, pivotData);
         };
       } : null;
-      return h('table', {
-        staticClass: ['pvtTable']
-      }, [h('thead', [colAttrs.map(function (c, j) {
+      var thead = [colAttrs.map(function (c, j) {
         return h('tr', {
           attrs: {
             key: "colAttrs".concat(j)
@@ -12076,7 +12088,8 @@ function makeRenderer() {
         staticClass: ['pvtTotalLabel']
       }, colAttrs.length === 0 ? 'Totals' : null) : colAttrs.length === 0 ? undefined : h('th', {
         staticClass: ['pvtTotalLabel']
-      }, null)]) : undefined]), h('tbody', [rowKeys.map(function (rowKey, i) {
+      }, null)]) : undefined];
+      var tbody = [rowKeys.map(function (rowKey, i) {
         var totalAggregator = pivotData.getAggregator(rowKey, []);
         return h('tr', {
           attrs: {
@@ -12116,7 +12129,8 @@ function makeRenderer() {
             click: getClickHandler(totalAggregator.value(), rowKey, [null])
           } : {}
         }, totalAggregator.format(totalAggregator.value())) : undefined]);
-      }), h('tr', [this.colTotal ? h('th', {
+      }), // TOTAL
+      h('tr', [this.colTotal ? h('th', {
         staticClass: ['pvtTotalLabel'],
         attrs: {
           colSpan: rowAttrs.length + (colAttrs.length === 0 ? 0 : 1)
@@ -12138,7 +12152,10 @@ function makeRenderer() {
         on: getClickHandler ? {
           click: getClickHandler(grandTotalAggregator.value(), [null], [null])
         } : {}
-      }, grandTotalAggregator.format(grandTotalAggregator.value())) : undefined])])]);
+      }, grandTotalAggregator.format(grandTotalAggregator.value())) : undefined])];
+      return h("table", {
+        "class": "pvtTable"
+      }, [h("thead", [thead]), h("tbody", [tbody])]);
     }
   };
   return TableRenderer;
@@ -12186,22 +12203,44 @@ var TSVExportRenderer = {
     });
     result.unshift(headerRow);
     var rows = result.length;
+    /*
     return h('textarea', {
       style: {
         width: window.innerWidth / 2,
         height: window.innerHeight / 2,
-        'min-width': '600px'
+        'min-width': '600px',
       },
       attrs: {
         readOnly: true,
         rows: rows
       },
       domProps: {
-        value: result.map(function (r) {
-          return r.join(',');
-        }).join('\n')
+        value: result.map(r => r.join(',')).join('\n')
       }
-    });
+    })
+    */
+
+    var style = {
+      width: window.innerWidth / 2,
+      height: window.innerHeight / 2,
+      'min-width': '600px'
+    };
+    var attrs = {
+      readOnly: true,
+      rows: rows
+    };
+    var domProps = {
+      value: result.map(function (r) {
+        return r.join(',');
+      }).join('\n')
+    };
+    return h("textarea", helper_default()([{
+      "style": style
+    }, {
+      "attrs": attrs
+    }, {}, {
+      "domProps": domProps
+    }]));
   }
 };
 var en_table = {
@@ -12307,6 +12346,10 @@ function DraggableAttribute_objectSpread(target) { for (var i = 1; i < arguments
     name: {
       type: String,
       required: true
+    },
+    desc: {
+      type: String,
+      default: ""
     },
     attrValues: {
       type: Object,
@@ -12519,7 +12562,12 @@ function DraggableAttribute_objectSpread(target) { for (var i = 1; i < arguments
         sortonly: this.sortonly,
         disabled: this.disabled
       }
-    }, [this.name, !this.disabled ? h('span', {
+    }, [h("span", {
+      "directives": [{
+        name: "tooltip",
+        value: this.desc
+      }]
+    }, [" ", this.name]), !this.disabled ? h('span', {
       staticClass: ['pvtTriangle'],
       on: {
         'click': this.toggleFilterBox.bind(this)
@@ -12527,11 +12575,16 @@ function DraggableAttribute_objectSpread(target) { for (var i = 1; i < arguments
     }, '  ▾') : undefined, this.open ? this.getFilterBox(h) : undefined])]);
   }
 });
-// CONCATENATED MODULE: ./src/Dropdown.js
+// CONCATENATED MODULE: ./src/Dropdown.jsx
 
 
 /* harmony default export */ var Dropdown = ({
-  props: ['values', 'changeValue'],
+  props: {
+    values: {
+      type: Array,
+      required: true
+    }
+  },
   methods: {
     handleChange: function handleChange(e) {
       var changeValue = e.target.value;
@@ -12539,6 +12592,24 @@ function DraggableAttribute_objectSpread(target) { for (var i = 1; i < arguments
     }
   },
   render: function render(h) {
+    var _this = this;
+
+    var options = this.values.map(function (r) {
+      return h("option", {
+        "domProps": {
+          "value": r
+        }
+      }, [" ", r, " "]);
+    });
+    return h("select", {
+      "class": "pvtDropdown",
+      "on": {
+        "change": function change(e) {
+          return _this.handleChange(e);
+        }
+      }
+    }, [" ", options]);
+    /*
     return h('select', {
       staticClass: ['pvtDropdown'],
       attrs: {
@@ -12547,13 +12618,8 @@ function DraggableAttribute_objectSpread(target) { for (var i = 1; i < arguments
       on: {
         change: this.handleChange
       }
-    }, [this.values.map(function (r) {
-      return h('option', {
-        attrs: {
-          value: r
-        }
-      }, r);
-    })]);
+    }, [options]);
+    */
   }
 });
 // EXTERNAL MODULE: ./node_modules/vuedraggable/dist/vuedraggable.common.js
@@ -12561,6 +12627,7 @@ var vuedraggable_common = __webpack_require__("310e");
 var vuedraggable_common_default = /*#__PURE__*/__webpack_require__.n(vuedraggable_common);
 
 // CONCATENATED MODULE: ./src/PivottableUi.js
+
 
 
 
@@ -12587,6 +12654,10 @@ function PivottableUi_objectSpread(target) { for (var i = 1; i < arguments.lengt
   name: 'vue-pivottable-ui',
   mixins: [defaultProps],
   props: {
+    attr_tooltip_map: {
+      type: Object,
+      default: {}
+    },
     hiddenAttributes: {
       type: Array,
       default: function _default() {
@@ -12716,6 +12787,9 @@ function PivottableUi_objectSpread(target) { for (var i = 1; i < arguments.lengt
     }
   },
   methods: {
+    get_desc: function get_desc(q_name) {
+      return this.attr_tooltip_map[q_name] ? this.attr_tooltip_map[q_name] : "";
+    },
     assignValue: function assignValue(field) {
       this.propsData.valueFilter = PivottableUi_objectSpread({}, this.propsData.valueFilter, _defineProperty({}, field, {}));
     },
@@ -12808,6 +12882,7 @@ function PivottableUi_objectSpread(target) { for (var i = 1; i < arguments.lengt
             draggable: !_this5.sortonlyFromDragDrop.includes(x) && !_this5.disabledFromDragDrop.includes(x),
             name: x,
             key: x,
+            desc: _this5.get_desc(x),
             attrValues: _this5.attrValues[x],
             sorter: getSort(_this5.sorters, x),
             menuLimit: _this5.menuLimit,
@@ -12827,11 +12902,7 @@ function PivottableUi_objectSpread(target) { for (var i = 1; i < arguments.lengt
     rendererCell: function rendererCell(rendererName, h) {
       var _this6 = this;
 
-      return this.$slots.rendererCell ? h('td', {
-        staticClass: ['pvtRenderers pvtVals pvtText']
-      }, this.$slots.rendererCell) : h('td', {
-        staticClass: ['pvtRenderers']
-      }, [h(Dropdown, {
+      var dropdown = h(Dropdown, {
         props: {
           values: Object.keys(this.renderers)
         },
@@ -12843,16 +12914,26 @@ function PivottableUi_objectSpread(target) { for (var i = 1; i < arguments.lengt
             _this6.propUpdater('rendererName')(value);
           }
         }
-      })]);
+      });
+      /*
+      let dropdown = <Dropdown values={Object.keys(this.renderers)}></Dropdown>
+      */
+
+      return this.$slots.rendererCell ? h('td', {
+        staticClass: ['pvtRenderers pvtVals pvtText']
+      }, this.$slots.rendererCell) : h('td', {
+        staticClass: ['pvtRenderers']
+      }, [dropdown]);
     },
-    aggregatorCell: function aggregatorCell(aggregatorName, vals, h) {
+    aggregatorCell: function aggregatorCell(aggregatorName, vals) {
       var _this7 = this;
 
-      return this.$slots.aggregatorCell ? h('td', {
-        staticClass: ['pvtVals pvtText']
-      }, this.$slots.aggregatorCell) : h('td', {
-        staticClass: ['pvtVals']
-      }, [h('div', [h(Dropdown, {
+      var h = this.$createElement;
+      return this.$slots.aggregatorCell ? h("td", {
+        "class": "pvtVals pvtText"
+      }, [" ", this.$slots.aggregatorCell, " "]) : h("td", {
+        "class": "pvtVals"
+      }, [" ", [h('div', [h(Dropdown, {
         style: {
           display: 'inline-block'
         },
@@ -12903,14 +12984,15 @@ function PivottableUi_objectSpread(target) { for (var i = 1; i < arguments.lengt
             }
           }
         })];
-      }) : undefined]);
+      }) : undefined], " "]);
     },
-    outputCell: function outputCell(props, h) {
-      return h('td', {
-        staticClass: ['pvtOutput']
-      }, [h(Pivottable, {
-        props: props
-      })]);
+    outputCell: function outputCell(props) {
+      var h = this.$createElement;
+      return h("td", {
+        "class": "pvtOutput"
+      }, [h(Pivottable, helper_default()([{}, {
+        "props": props
+      }]))]);
     }
   },
   render: function render(h) {
@@ -12965,6 +13047,8 @@ function PivottableUi_objectSpread(target) { for (var i = 1; i < arguments.lengt
         _this8.propsData.rows.splice(e.newIndex, 0, item);
       }
     }, 'pvtAxisContainer pvtVertList pvtRows', h);
+    var rendererCell = this.rendererCell(rendererName, h);
+    var aggregatorCell = this.aggregatorCell(aggregatorName, vals);
 
     var props = PivottableUi_objectSpread({}, this.$props, {
       data: this.materializedInput,
@@ -12978,12 +13062,10 @@ function PivottableUi_objectSpread(target) { for (var i = 1; i < arguments.lengt
       vals: vals
     });
 
-    var rendererCell = this.rendererCell(rendererName, h);
-    var aggregatorCell = this.aggregatorCell(aggregatorName, vals, h);
-    var outputCell = this.outputCell(props, h);
-    return h('table', {
-      staticClass: ['pvtUi']
-    }, [h('tbody', [h('tr', [rendererCell, unusedAttrsCell]), h('tr', [aggregatorCell, colAttrsCell]), h('tr', [rowAttrsCell, outputCell])])]);
+    var outputCell = this.outputCell(props);
+    return h("table", {
+      "class": "pvtUi"
+    }, [h("tbody", [h("tr", [[rendererCell, unusedAttrsCell]]), h("tr", [[aggregatorCell, colAttrsCell]]), h("tr", [[rowAttrsCell, outputCell]])])]);
   }
 });
 // EXTERNAL MODULE: ./src/pivottable.css
