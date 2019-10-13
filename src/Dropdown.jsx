@@ -1,5 +1,7 @@
 export default {
-  props: ['values', 'changeValue'],
+  props: {
+    values: { type: Array, required: true }
+  },
   methods: {
     handleChange(e) {
       const changeValue = e.target.value
@@ -14,13 +16,6 @@ export default {
     return <select class="pvtDropdown"
       onChange={e => this.handleChange(e)}
     > {options}</select>
-
-    /*
-    return <select class="pvtDropdown" 
-       value={this.value}
-       onChange= {e => this.handleChange(e)}
-    > {options}</select>
-    */
 
     /*
     return h('select', {
