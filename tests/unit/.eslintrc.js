@@ -12,6 +12,6 @@ module.exports = {
         // 'vue/no-unused-vars': 'error'
       },
       "parserOptions": {
-        "parser": "@typescript-eslint/parser"
+        "parser": "babel-eslint"
       }
 }
