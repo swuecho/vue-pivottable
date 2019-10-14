@@ -244,14 +244,8 @@ export default {
               // pass `scopedSlots` in the data object
               // in the form of { name: props => VNode | Array<VNode> }
               scopedSlots: {
-                default: function (props) {
-                  return <span> {props.value} </span>
-                },
-                attr_name: function (props) {
-                  return h('span' , {
-                   directives: [{name: 'tooltip', value:  pivotUI.get_desc(props.value)}]
-                  }, props.value)
-                }
+                attr_name: pivotUI.$scopedSlots.attr_name,
+                //attr_name: function(props) { return pivotUI.attrNameRender(h,props)}
               },
               domProps: {
               },

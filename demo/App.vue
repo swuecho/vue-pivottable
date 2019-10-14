@@ -47,6 +47,7 @@
           :data="pivotData"
           :attrTooltipMap="attrTooltipMap"
           :labels="labels"
+          :attrNameRender="this.attrNameRender"
           :lang="lang"
           :aggregatorName="aggregatorName"
           :rendererName="rendererName"
@@ -56,7 +57,11 @@
           :disabledFromDragDrop="disabledFromDragDrop"
           :sortonlyFromDragDrop="sortonlyFromDragDrop"
           :hiddenFromDragDrop="hiddenFromDragDrop"
-        ></vue-pivottable-ui>
+        >
+          <template v-slot:attr_name="{ value }">
+            <span v-tooltip="get_desc(value)">{{value}}</span>
+          </template>
+        </vue-pivottable-ui>
       </div>
       <pre>
         <code>
@@ -100,7 +105,7 @@ export default {
       lang: "cn",
       attrTooltipMap: {
         Meal: "哪里顿饭",
-        "Payer Gender": "你的性别",
+        "Payer Gender": "你的性别"
       },
       labels: {
         "Payer Gender": function(value) {
@@ -122,6 +127,11 @@ export default {
       hiddenFromDragDrop: ["Total Bill"],
       sortonlyFromDragDrop: ["Party Size"]
     };
+  },
+  methods: {
+    get_desc(q_name) {
+      return this.attrTooltipMap[q_name] ? this.attrTooltipMap[q_name] : "";
+    }
   }
 };
 </script>

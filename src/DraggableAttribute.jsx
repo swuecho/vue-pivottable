@@ -232,11 +232,6 @@ export default {
             // <span v-tooltip={this.desc}> {this.name}</span>,
             // <slot name="attr_name" value={this.name}> <span>{this.name} </span> </slot>
             <span> {[
-              /*
-              this.$scopedSlots.default({
-                value: this.name
-              }),
-              */
               this.$scopedSlots.attr_name({
                 value: this.name
               })
