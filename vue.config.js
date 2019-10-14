@@ -4,6 +4,15 @@ module.exports = {
       libraryExport: 'default'
     }
   },
+  chainWebpack: config => {
+    // config.module.rules.delete('eslint');
+    // config.module.rule('ts').use('ts-loader');
+    config.module.rule('lang jsx')
+      .test(/\.jsx$/)
+      .use('babel-loader')
+      .loader('babel-loader').end()
+
+  },
   indexPath: '/demo/',
   pages: {
     index: {

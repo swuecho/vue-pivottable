@@ -24,12 +24,9 @@ function makeRenderer(opts = {}) {
         default: function () {
           return {}
         }
-      }
+      },
     },
     methods: {
-      applyLabel(attr, cell_value) {
-        return this.labels[attr] ? this.labels[attr](cell_value) : cell_value
-      },
       spanSize(arr, i, j) {
         // helper function for setting row/col-span in pivotTableRenderer
         let x
@@ -180,7 +177,16 @@ function makeRenderer(opts = {}) {
                     colSpan: x,
                     rowSpan: j === colAttrs.length - 1 && rowAttrs.length !== 0 ? 2 : 1
                   }
-                }, this.applyLabel(colAttrs[j], colKey[j]))
+                },
+                  [<span> {
+                    this.$scopedSlots.cell_render ? this.$scopedSlots.cell_render({
+                      attr: colAttrs[j],
+                      value: colKey[j]
+                    }) :
+                      <span>{colKey[j]}</span>
+                  }
+                  </span>]
+                )
               }),
               j === 0 && this.rowTotal ? h('th', {
                 staticClass: ['pvtTotalLabel'],
@@ -230,7 +236,16 @@ function makeRenderer(opts = {}) {
                     rowSpan: x,
                     colSpan: j === rowAttrs.length - 1 && colAttrs.length !== 0 ? 2 : 1
                   }
-                }, this.applyLabel(rowAttrs[j], txt))
+                }, 
+                [<span> {
+                  this.$scopedSlots.cell_render ? this.$scopedSlots.cell_render({
+                    attr: rowAttrs[j],
+                    value: txt 
+                  }) :
+                    <span>{txt}</span>
+                }
+                </span>]
+                )
               }),
 
               colKeys.map((colKey, j) => {

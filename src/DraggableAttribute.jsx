@@ -18,10 +18,6 @@ export default {
       type: String,
       required: true
     },
-    desc: {
-      type: String,
-      default: ""
-    },
     attrValues: {
       type: Object,
       required: true
@@ -232,7 +228,16 @@ export default {
           }
         },
           [
-            <span v-tooltip={this.desc}> {this.name}</span>,
+
+            // <span v-tooltip={this.desc}> {this.name}</span>,
+            // <slot name="attr_render" value={this.name}> <span>{this.name} </span> </slot>
+            <span> {
+              this.$scopedSlots.attr_render ? this.$scopedSlots.attr_render({
+                value: this.name
+              }) :
+               <span>{this.name}</span>
+            }
+            </span>,
             !this.disabled ? h('span', {
               staticClass: ['pvtTriangle'],
               on: {
