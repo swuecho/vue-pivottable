@@ -59,6 +59,9 @@
           <template v-slot:attr_render="{ value }">
             <span v-tooltip="get_desc(value)">{{value}}</span>
           </template>
+          <template v-slot:cell_render="{ attr, value }">
+            <span>{{ applyLabel(attr,value)}}</span>
+          </template>
         </vue-pivottable-ui>
       </div>
       <pre>
@@ -129,6 +132,9 @@ export default {
   methods: {
     get_desc(q_name) {
       return this.attrTooltipMap[q_name] ? this.attrTooltipMap[q_name] : "";
+    },
+    applyLabel(attr, cell_value) {
+      return this.labels[attr] ? this.labels[attr](cell_value) : cell_value;
     }
   }
 };

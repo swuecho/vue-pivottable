@@ -231,12 +231,11 @@ export default {
 
             // <span v-tooltip={this.desc}> {this.name}</span>,
             // <slot name="attr_render" value={this.name}> <span>{this.name} </span> </slot>
-            <span> {[
+            <span> {
               this.$scopedSlots.attr_render ? this.$scopedSlots.attr_render({
                 value: this.name
               }) :
                <span>{this.name}</span>
-            ]
             }
             </span>,
             !this.disabled ? h('span', {

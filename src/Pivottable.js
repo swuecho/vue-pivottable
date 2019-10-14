@@ -12,8 +12,12 @@ export default {
   },
   render(h) {
     const props = this.$props
+    const $scopedSlots = this.$scopedSlots
+    console.log($scopedSlots);
+    props['cell_render'] = this.$scopedSlots.cell_render;
     return h(this.renderers, {
-      props
+      props,
+      $scopedSlots
     })
   }
 }

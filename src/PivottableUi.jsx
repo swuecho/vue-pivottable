@@ -345,9 +345,12 @@ export default {
               : undefined
           ]} </td>
     },
-    outputCell(props, h) {
+    outputCell(props,h) {
       return <td class="pvtOutput">
-        <Pivottable props={props}></Pivottable>
+        <Pivottable props={props} scopedSlots={{
+          cell_render: this.$scopedSlots.cell_render
+        }}>
+        </Pivottable>
       </td>
     }
   },
