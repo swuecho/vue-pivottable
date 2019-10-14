@@ -47,7 +47,6 @@
           :data="pivotData"
           :attrTooltipMap="attrTooltipMap"
           :labels="labels"
-          :attrNameRender="this.attrNameRender"
           :lang="lang"
           :aggregatorName="aggregatorName"
           :rendererName="rendererName"
