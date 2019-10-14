@@ -129,7 +129,7 @@ export default {
   beforeUpdated(nextProps) {
     this.materializeInput(nextProps.data)
   },
-  
+
   watch: {
     data() {
       this.materializeInput(this.data)
@@ -208,6 +208,7 @@ export default {
       this.attrValues = attrValues
     },
     makeDnDCell(items, onChange, classes, h) {
+      let pivotUI = this;
       return h(draggable, {
         attrs: {
           draggable: 'li[data-id]',
@@ -233,13 +234,24 @@ export default {
                 draggable: !this.sortonlyFromDragDrop.includes(x) && !this.disabledFromDragDrop.includes(x),
                 name: x,
                 key: x,
-                desc: this.get_desc(x) ,
                 attrValues: this.attrValues[x],
                 sorter: getSort(this.sorters, x),
                 menuLimit: this.menuLimit,
                 zIndex: this.zIndices[x] || this.maxZIndex,
                 valueFilter: this.propsData.valueFilter[x],
                 open: this.openStatus[x]
+              },
+              // pass `scopedSlots` in the data object
+              // in the form of { name: props => VNode | Array<VNode> }
+              scopedSlots: {
+                default: function (props) {
+                  return <span> {props.value} </span>
+                },
+                attr_name: function (props) {
+                  return h('span' , {
+                   directives: [{name: 'tooltip', value:  pivotUI.get_desc(props.value)}]
+                  }, props.value)
+                }
               },
               domProps: {
               },
@@ -279,7 +291,7 @@ export default {
             dropdown
           ])
     },
-    aggregatorCell(aggregatorName, vals) {
+    aggregatorCell(aggregatorName, vals, h) {
       return this.$slots.aggregatorCell
         ? <td class="pvtVals pvtText"> {this.$slots.aggregatorCell} </td>
         : <td class="pvtVals"> {
@@ -339,7 +351,7 @@ export default {
               : undefined
           ]} </td>
     },
-    outputCell(props) {
+    outputCell(props, h) {
       return <td class="pvtOutput">
         <Pivottable props={props}></Pivottable>
       </td>
@@ -403,7 +415,7 @@ export default {
     )
 
     const rendererCell = this.rendererCell(rendererName, h)
-    const aggregatorCell = this.aggregatorCell(aggregatorName, vals)
+    const aggregatorCell = this.aggregatorCell(aggregatorName, vals, h)
 
     const props = {
       ...this.$props,
@@ -418,7 +430,7 @@ export default {
       vals
     }
 
-    const outputCell = this.outputCell(props)
+    const outputCell = this.outputCell(props, h)
     return <table class="pvtUi">
       <tbody>
         <tr>{[rendererCell, unusedAttrsCell]}</tr>
