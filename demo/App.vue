@@ -32,7 +32,6 @@
           &lt;vue-pivottable
               :lang="lang"
               :data="pivotData"
-              :labels="labels"
               :aggregatorName="aggregatorName"
               :rendererName="rendererName"
               :rows="rows"

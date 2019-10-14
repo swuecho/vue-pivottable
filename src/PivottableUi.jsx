@@ -10,12 +10,6 @@ export default {
   name: 'VuePivottableUi',
   mixins: [common],
   props: {
-    attrTooltipMap: {
-      type: Object,
-      default: function () {
-        return {}
-      }
-    },
     hiddenAttributes: {
       type: Array,
       default: function () {

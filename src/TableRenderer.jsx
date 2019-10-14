@@ -27,9 +27,6 @@ function makeRenderer(opts = {}) {
       },
     },
     methods: {
-      applyLabel(attr, cell_value) {
-        return this.labels[attr] ? this.labels[attr](cell_value) : cell_value
-      },
       spanSize(arr, i, j) {
         // helper function for setting row/col-span in pivotTableRenderer
         let x
