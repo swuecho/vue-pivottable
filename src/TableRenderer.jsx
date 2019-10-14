@@ -25,7 +25,6 @@ function makeRenderer(opts = {}) {
           return {}
         }
       },
-      cell_render: Function
     },
     methods: {
       applyLabel(attr, cell_value) {
@@ -183,7 +182,7 @@ function makeRenderer(opts = {}) {
                   }
                 },
                   [<span> {
-                    this.cell_render ? this.cell_render({
+                    this.$scopedSlots.cell_render ? this.$scopedSlots.cell_render({
                       attr: colAttrs[j],
                       value: colKey[j]
                     }) :
