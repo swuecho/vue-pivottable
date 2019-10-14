@@ -45,7 +45,6 @@
       <div class="table-responsive">
         <vue-pivottable-ui
           :data="pivotData"
-          :attrTooltipMap="attrTooltipMap"
           :labels="labels"
           :lang="lang"
           :aggregatorName="aggregatorName"
@@ -57,7 +56,7 @@
           :sortonlyFromDragDrop="sortonlyFromDragDrop"
           :hiddenFromDragDrop="hiddenFromDragDrop"
         >
-          <template v-slot:attr_name="{ value }">
+          <template v-slot:attr_render="{ value }">
             <span v-tooltip="get_desc(value)">{{value}}</span>
           </template>
         </vue-pivottable-ui>
