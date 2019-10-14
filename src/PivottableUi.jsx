@@ -235,11 +235,8 @@ export default {
                 valueFilter: this.propsData.valueFilter[x],
                 open: this.openStatus[x]
               },
-              // pass `scopedSlots` in the data object
-              // in the form of { name: props => VNode | Array<VNode> }
               scopedSlots: {
                 attr_render: pivotUI.$scopedSlots.attr_render,
-                //attr_render: function(props) { return pivotUI.attrNameRender(h,props)}
               },
               domProps: {
               },
@@ -264,10 +261,6 @@ export default {
           input: (value) => { this.propUpdater('rendererName')(value) }
         }
       })
-      /*
-      let dropdown = <Dropdown values={Object.keys(this.renderers)}></Dropdown>
-      */
-
       return this.$slots.rendererCell
         ? h('td', {
           staticClass: ['pvtRenderers pvtVals pvtText']
@@ -279,7 +272,7 @@ export default {
             dropdown
           ])
     },
-    aggregatorCell(aggregatorName, vals, h) {
+    aggregatorCell(aggregatorName, vals) {
       return this.$slots.aggregatorCell
         ? <td class="pvtVals pvtText"> {this.$slots.aggregatorCell} </td>
         : <td class="pvtVals"> {
@@ -339,7 +332,7 @@ export default {
               : undefined
           ]} </td>
     },
-    outputCell(props,h) {
+    outputCell(props) {
       return <td class="pvtOutput">
         <Pivottable props={props} scopedSlots={{
           cell_render: this.$scopedSlots.cell_render
@@ -348,7 +341,7 @@ export default {
       </td>
     }
   },
-  render(h) {
+  render() {
     if (this.data.length < 1) return
     const rendererName = this.propsData.rendererName || this.rendererName
     const aggregatorName = this.propsData.aggregatorName || this.aggregatorName
@@ -406,7 +399,7 @@ export default {
     )
 
     const rendererCell = this.rendererCell(rendererName, h)
-    const aggregatorCell = this.aggregatorCell(aggregatorName, vals, h)
+    const aggregatorCell = this.aggregatorCell(aggregatorName, vals)
 
     const props = {
       ...this.$props,
@@ -421,7 +414,7 @@ export default {
       vals
     }
 
-    const outputCell = this.outputCell(props, h)
+    const outputCell = this.outputCell(props)
     return <table class="pvtUi">
       <tbody>
         <tr>{[rendererCell, unusedAttrsCell]}</tr>

@@ -67,7 +67,7 @@ function makeRenderer(opts = {}) {
         return len
       }
     },
-    render(h) {
+    render() {
       const pivotData = new PivotData({ aggregators: locales[this.lang]['aggregators'], ...this.$props })
       const colAttrs = pivotData.props.cols
       const rowAttrs = pivotData.props.rows
@@ -316,7 +316,7 @@ function makeRenderer(opts = {}) {
 const TSVExportRenderer = {
   name: 'tsv-export-renderers',
   mixins: [defaultProps],
-  render(h) {
+  render() {
     const pivotData = new PivotData({ aggregators: locales[this.lang]['aggregators'], ...this.$props })
     const rowKeys = pivotData.getRowKeys()
     const colKeys = pivotData.getColKeys()
