@@ -1,7 +1,13 @@
+import { locales } from './helper/utils'
+
 
 export default {
   name: 'DraggableAttribute',
   props: {
+    lang: {
+      type: String,
+      default: "en"
+    },
     open: {
       type: Boolean,
       default: false
@@ -50,6 +56,9 @@ export default {
     },
     sortonly() {
       return this.sortable && !this.draggable
+    },
+    localeStrings() {
+      return locales[this.lang]['localeStrings']
     }
   },
   methods: {
@@ -126,7 +135,7 @@ export default {
                 staticClass: ['pvtSearch'],
                 attrs: {
                   type: 'text',
-                  placeholder: 'Filter Values'
+                  placeholder: this.localeStrings['filterResults'] 
                 },
                 domProps: {
                   value: this.filterText
@@ -152,7 +161,7 @@ export default {
                 on: {
                   click: () => this.removeValuesFromFilter(this.name, Object.keys(this.attrValues).filter(this.matchesFilter.bind(this)))
                 }
-              }, values.length === shown.length ? 'Select All' : `Select ${shown.length}`),
+              }, values.length === shown.length ? this.localeStrings['selectAll'] : `${this.localeStrings['select']}(${shown.length})`),
               h('a', {
                 staticClass: ['pvtButton'],
                 attrs: {
@@ -161,7 +170,7 @@ export default {
                 on: {
                   click: () => this.addValuesToFilter(this.name, Object.keys(this.attrValues).filter(this.matchesFilter.bind(this)))
                 }
-              }, values.length === shown.length ? 'Deselect All' : `Deselect ${shown.length}`)
+              }, values.length === shown.length ? this.localeStrings['selectNone'] : `${this.localeStrings['deselect']}(${shown.length})`)
             ]),
           showMenu && h('div', {
             staticClass: ['pvtCheckContainer']
@@ -202,7 +211,7 @@ export default {
                       on: {
                         click: e => this.selectOnly(e, x)
                       }
-                    }, 'only'),
+                    }, this.localeStrings['only']),
                     h('a', {
                       staticClass: ['pvtOnlySpacer']
                     })
