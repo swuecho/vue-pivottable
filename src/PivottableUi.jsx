@@ -238,6 +238,7 @@ export default {
               },
               scopedSlots: {
                 attr_render: pivotUI.$scopedSlots.attr_render,
+                cell_render: pivotUI.$scopedSlots.cell_render
               },
               domProps: {
               },
