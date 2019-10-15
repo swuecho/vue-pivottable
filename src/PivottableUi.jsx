@@ -224,6 +224,7 @@ export default {
           items.map(x => {
             return h(DraggableAttribute, {
               props: {
+                lang: this.lang,
                 sortable: this.sortonlyFromDragDrop.includes(x) || !this.disabledFromDragDrop.includes(x),
                 draggable: !this.sortonlyFromDragDrop.includes(x) && !this.disabledFromDragDrop.includes(x),
                 name: x,
@@ -237,6 +238,7 @@ export default {
               },
               scopedSlots: {
                 attr_render: pivotUI.$scopedSlots.attr_render,
+                cell_render: pivotUI.$scopedSlots.cell_render
               },
               domProps: {
               },

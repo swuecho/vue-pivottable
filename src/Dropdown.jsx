@@ -9,10 +9,7 @@ export default {
     }
   },
   render(h) {
-    let options =
-      this.values.map(r => {
-        return <option value={r}> {r} </option>
-      })
+    let options = this.values.map(r => <option value={r}> {r} </option>)
     return <select class="pvtDropdown"
       onChange={e => this.handleChange(e)}
     > {options}</select>
