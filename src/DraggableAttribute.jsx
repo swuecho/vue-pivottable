@@ -152,7 +152,7 @@ export default {
                 on: {
                   click: () => this.removeValuesFromFilter(this.name, Object.keys(this.attrValues).filter(this.matchesFilter.bind(this)))
                 }
-              }, `Select ${values.length === shown.length ? 'All' : shown.length}`),
+              }, values.length === shown.length ? 'Select All' : `Select ${shown.length}`),
               h('a', {
                 staticClass: ['pvtButton'],
                 attrs: {
@@ -161,7 +161,7 @@ export default {
                 on: {
                   click: () => this.addValuesToFilter(this.name, Object.keys(this.attrValues).filter(this.matchesFilter.bind(this)))
                 }
-              }, `Deselect ${values.length === shown.length ? 'All' : shown.length}`)
+              }, values.length === shown.length ? 'Deselect All' : `Deselect ${shown.length}`)
             ]),
           showMenu && h('div', {
             staticClass: ['pvtCheckContainer']
@@ -189,7 +189,14 @@ export default {
                         checked: checked
                       }
                     }),
-                    x,
+                    <span> {
+                      this.$scopedSlots.cell_render ? this.$scopedSlots.cell_render({
+                        attr: this.name,
+                        value: x
+                      }) :
+                        <span>{x}</span>
+                    }
+                    </span>,
                     h('a', {
                       staticClass: ['pvtOnly'],
                       on: {
@@ -235,7 +242,7 @@ export default {
               this.$scopedSlots.attr_render ? this.$scopedSlots.attr_render({
                 value: this.name
               }) :
-               <span>{this.name}</span>
+                <span>{this.name}</span>
             }
             </span>,
             !this.disabled ? h('span', {
