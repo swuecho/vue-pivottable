@@ -64,3 +64,4 @@ typings/
 .history
 
 tests/test-results.xml
+dist/
