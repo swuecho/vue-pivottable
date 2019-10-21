@@ -473,7 +473,7 @@ const locales = {
       deselect: "取消",
       selectAll: '全选',
       selectNone: '取消',
-      tooMany: '(太多)',
+      tooMany: '(选项太多,无法显示)',
       filterResults: '筛选',
       apply: '应用',
       cancel: '取消',

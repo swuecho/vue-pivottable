@@ -130,7 +130,7 @@ export default {
             staticClass: 'pvtSearchContainer'
           },
             [
-              showMenu || h('p', 'too many values to show'),
+              showMenu || h('p', this.localeStrings['tooMany']),
               showMenu && h('input', {
                 staticClass: ['pvtSearch'],
                 attrs: {
